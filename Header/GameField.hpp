@@ -14,6 +14,13 @@ private:
 public:
 	GameField(Settings settings);
 	~GameField();
+	void update();
+	void setHover(unsigned int x, unsigned int y, sf::RenderWindow &window);
+	void setAlive(unsigned int x, unsigned int y);
+	bool isCellHover(unsigned int x, unsigned int y);
+	void clear();
+	void nextGeneration();
+	int checkNeighborhood(int x, int y);
 	void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const;
 };
 

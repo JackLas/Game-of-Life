@@ -17,6 +17,8 @@ public:
 	bool isHover();
 	bool isAlive();
 	void setAlive(bool isAlive);
+	void setHover(bool isHover);
+	sf::FloatRect getBounds();
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 

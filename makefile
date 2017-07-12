@@ -17,5 +17,5 @@ Game.o: Source\Game.cpp Header\Game.hpp Source\GameField.cpp Header\GameField.hp
 GameField.o: Source\GameField.cpp Header\GameField.hpp
 	g++ $< $(FLAGS) -c
 
-Cell.o: Source\Cell.cpp Header\Cell.hpp Source\Settings.cpp Header\Settings.hpp
+Cell.o: Source\Cell.cpp Header\Cell.hpp
 	g++ $< $(FLAGS) -c

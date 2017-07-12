@@ -15,7 +15,6 @@ void Cell::initialization(sf::Vector2f position, sf::Vector2f size)
 	myIsHover = false;
 	myShape.setSize(size); 
 	myShape.setPosition(position);
-	myShape.setFillColor(sf::Color::Green);
 }
 
 void Cell::setColor(sf::Color color)
@@ -36,6 +35,16 @@ bool Cell::isAlive()
 void Cell::setAlive(bool isAlive)
 {
 	myIsAlive = isAlive;
+}
+
+void Cell::setHover(bool isHover)
+{
+	myIsHover = isHover;
+}
+
+sf::FloatRect Cell::getBounds()
+{
+	return myShape.getGlobalBounds();
 }
 
 void Cell::draw(sf::RenderTarget &target, sf::RenderStates states) const

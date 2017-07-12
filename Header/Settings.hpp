@@ -12,11 +12,17 @@ public:
 
 	unsigned int fieldWidth;
 	unsigned int fieldHeight;
+	sf::Vector2f fieldPosition;
+	unsigned int numOfCellWidth;
+	unsigned int numOfCellHeight;
 	unsigned int cellGap;
+
+	float generationDelay;
 
 	sf::Color bg;
 	sf::Color livingCell;
 	sf::Color deadCell;
+	sf::Color hoverCell;
 public:
 	Settings();
 	Settings(std::string pathToFile);

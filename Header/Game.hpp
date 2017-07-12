@@ -12,6 +12,9 @@ private:
 
 	sf::RenderWindow myWindow;
 	sf::Clock clock;
+	bool isPaused;
+	float generationDelay;
+	float timeToGeneration;
 
 	GameField gameField;
 public:
@@ -22,6 +25,7 @@ protected:
 	void handleInput();
 	void update();
 	void render();
+	void switchPause();
 };
 
 #endif //GAME_H
