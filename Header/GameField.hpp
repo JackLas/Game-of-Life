@@ -9,7 +9,7 @@
 class GameField: public sf::Drawable
 {
 private:
-	std::vector<std::vector<Cell>> cells;
+	std::vector<std::vector<Cell>> curGen, prevGen;
 	Settings mySettings;
 public:
 	GameField(Settings settings);
@@ -21,6 +21,7 @@ public:
 	void clear();
 	void nextGeneration();
 	int checkNeighborhood(int x, int y);
+	void randomize();
 	void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const;
 };
 

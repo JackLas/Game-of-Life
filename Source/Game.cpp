@@ -36,6 +36,8 @@ void Game::handleInput()
 		{
 			if(event.key.code == sf::Keyboard::C && isPaused)
 				gameField.clear();
+			if(event.key.code == sf::Keyboard::R && isPaused)
+				gameField.randomize();
 			if(event.key.code == sf::Keyboard::Space)
 				switchPause();
 		}

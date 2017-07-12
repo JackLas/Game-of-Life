@@ -1,4 +1,6 @@
 #include "GameField.hpp"
+#include <ctime>
+#include <cstdlib>
 
 GameField::GameField(Settings settings)
 {
@@ -15,8 +17,9 @@ GameField::GameField(Settings settings)
 		{
 			tmp.push_back(Cell(sf::Vector2f(j*xOffset + mySettings.cellGap/2 + mySettings.fieldPosition.x, i*yOffset + mySettings.cellGap/2 + mySettings.fieldPosition.y), sf::Vector2f(size)));
 		}
-		cells.push_back(tmp);
+		curGen.push_back(tmp);
 	}
+	prevGen = curGen;
 }
 
 GameField::~GameField()
@@ -25,41 +28,41 @@ GameField::~GameField()
 
 void GameField::update()
 {
-	for(unsigned int y = 0; y < cells.size(); ++y)
+	for(unsigned int y = 0; y < curGen.size(); ++y)
 	{
-		for(unsigned int x = 0; x < cells[y].size(); ++x)
+		for(unsigned int x = 0; x < curGen[y].size(); ++x)
 		{
-			if(cells[y][x].isHover())
-				cells[y][x].setColor(mySettings.hoverCell);
-			else if(cells[y][x].isAlive())
-				cells[y][x].setColor(mySettings.livingCell);
-			else cells[y][x].setColor(mySettings.deadCell);
+			if(curGen[y][x].isHover())
+				curGen[y][x].setColor(mySettings.hoverCell);
+			else if(curGen[y][x].isAlive())
+				curGen[y][x].setColor(mySettings.livingCell);
+			else curGen[y][x].setColor(mySettings.deadCell);
 		}
 	}
 }
 
 void GameField::setHover(unsigned int x, unsigned int y, sf::RenderWindow &window)
 {
-	if(cells[y][x].getBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
-		cells[y][x].setHover(true);
-	else cells[y][x].setHover(false);
+	if(curGen[y][x].getBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+		curGen[y][x].setHover(true);
+	else curGen[y][x].setHover(false);
 }
 
 void GameField::setAlive(unsigned int x, unsigned int y)
 {
-	cells[y][x].setAlive(true);
+	curGen[y][x].setAlive(true);
 }
 
 bool GameField::isCellHover(unsigned x, unsigned int y)
 {
-	return cells[y][x].isHover();
+	return curGen[y][x].isHover();
 }
 
 void GameField::clear()
 {
-	for(unsigned int y = 0; y < cells.size(); ++y)
-		for(unsigned int x = 0; x < cells[y].size(); ++x)
-			cells[y][x].setAlive(false);
+	for(unsigned int y = 0; y < curGen.size(); ++y)
+		for(unsigned int x = 0; x < curGen[y].size(); ++x)
+			curGen[y][x].setAlive(false);
 }
 
 #include <iostream>
@@ -88,7 +91,7 @@ int GameField::checkNeighborhood(int x, int y)
 				continue;
 			}
 
-			if(cells[i][j].isAlive())
+			if(prevGen[i][j].isAlive())
 				counter++;
 		}
 	}
@@ -99,20 +102,35 @@ int GameField::checkNeighborhood(int x, int y)
 
 void GameField::nextGeneration()
 {
-	for(unsigned int y = 0; y < cells.size(); ++y)
+	prevGen = curGen;
+	for(unsigned int y = 0; y < curGen.size(); ++y)
 	{
-		for(unsigned int x = 0; x < cells[y].size(); ++x)
+		for(unsigned int x = 0; x < curGen[y].size(); ++x)
 		{
-			if(checkNeighborhood(x, y) == 3)
-				cells[y][x].setAlive(true);
-			else cells[y][x].setAlive(false);
+			int neighborhood = checkNeighborhood(x, y);
+			if(neighborhood == 3 && !prevGen[y][x].isAlive())
+				curGen[y][x].setAlive(true);
+			else if(neighborhood >= 2 && neighborhood <= 3 && prevGen[y][x].isAlive())
+				curGen[y][x].setAlive(true);
+			else curGen[y][x].setAlive(false);
 		}
 	}
 }
 
+void GameField::randomize()
+{
+	srand(time(NULL));
+	for(unsigned int y = 0; y < curGen.size(); ++y)
+		for(unsigned int x = 0; x < curGen[y].size(); ++x)
+			if((rand()%10000)%2 == 0)
+				curGen[y][x].setAlive(true);
+			else curGen[y][x].setAlive(false);
+
+}
+
 void GameField::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	for(unsigned int i = 0; i < cells.size(); ++i)
-		for(unsigned int j = 0; j < cells[i].size(); ++j)
-			target.draw(cells[i][j], states);
+	for(unsigned int i = 0; i < curGen.size(); ++i)
+		for(unsigned int j = 0; j < curGen[i].size(); ++j)
+			target.draw(curGen[i][j], states);
 }
