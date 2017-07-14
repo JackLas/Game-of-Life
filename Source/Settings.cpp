@@ -26,7 +26,7 @@ Settings::Settings()
 
 	bg = sf::Color::Black;
 	livingCell = sf::Color::Green;
-	deadCell = sf::Color::Red;
+	deadCell = bg;//sf::Color::Red;
 	hoverCell = sf::Color::Blue;
 }
 

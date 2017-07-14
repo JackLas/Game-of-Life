@@ -69,34 +69,31 @@ void GameField::clear()
 int GameField::checkNeighborhood(int x, int y)
 {
 	int counter = 0;
-	for(int i = y-1; i < y+2; ++i)
+	for(int i = y-1; i <= y+1; ++i)
 	{
-		for(int j = x-1; j < x+2; ++j)
+		for(int j = x-1; j <= x+1; ++j)
 		{
-			if(i < 0 || i > (int)mySettings.numOfCellHeight-1)
-			{
-				//std::cout << "i out of range" << std::endl;
-				continue;
-			}
-
-			if(j < 0 || j > (int)mySettings.numOfCellWidth-1)
-			{
-				//std::cout << "j out of range" << std::endl;
-				continue;
-			}
-
 			if(i == y && j == x)
-			{
-				//std::cout << "i == y || j == x" << std::endl;
 				continue;
-			}
 
-			if(prevGen[i][j].isAlive())
+			int tmpX = j, tmpY = i;
+
+			if(i < 0)
+				tmpY = i + mySettings.numOfCellHeight;
+
+			if(i > (int)mySettings.numOfCellHeight-1)
+				tmpY = i - mySettings.numOfCellHeight;
+
+			if(j < 0)
+				tmpX = j + mySettings.numOfCellWidth;
+
+			if(j > (int)mySettings.numOfCellWidth-1)
+				tmpX = j - mySettings.numOfCellWidth;
+
+			if(prevGen[tmpY][tmpX].isAlive())
 				counter++;
 		}
 	}
-
-	//std::cout << "Counter: " << counter << std::endl << std::endl;
 	return counter;
 }
 

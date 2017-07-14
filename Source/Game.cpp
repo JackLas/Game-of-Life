@@ -52,6 +52,7 @@ void Game::handleInput()
 				gameField.setAlive(x, y);
 		}
 	}
+
 }
 
 void Game::update()
