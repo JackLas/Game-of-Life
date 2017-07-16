@@ -3,7 +3,7 @@ FLAGS = -lsfml-system -lsfml-window -lsfml-graphics -IHeader -Wall -std=c++14
 MAIN_FILES = main.o Settings.o Game.o GameField.o Cell.o
 
 main.exe: $(MAIN_FILES)
-	g++ $(MAIN_FILES) $(FLAGS) -o main.exe
+	g++ $(MAIN_FILES) $(FLAGS) -mwindows -o main.exe
 
 main.o: Source\main.cpp Source\Game.cpp Header\Game.hpp Source\Settings.cpp Header\Settings.hpp
 	g++ $< $(FLAGS) -c 

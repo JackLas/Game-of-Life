@@ -2,9 +2,9 @@
 
 Settings::Settings()
 {
-	winWidth = 800;
-	winHeight = 600;
-	FPS = 60;
+	winWidth = 1130;
+	winHeight = 640;
+	FPS = 30;
 
 	/*
 	fieldWidth = winWidth - 200 - 40;
@@ -15,16 +15,17 @@ Settings::Settings()
 	*/
 
 	fieldWidth = winWidth;
-	fieldHeight = winHeight;
-	fieldPosition = sf::Vector2f(0, 0);
-	numOfCellWidth = 80;
-	numOfCellHeight = 60;
+	fieldHeight = winHeight-20;
+	fieldPosition = sf::Vector2f(0, 20);
+	numOfCellWidth = 113;
+	numOfCellHeight = 62;
 
 	cellGap = 1;
 
-	generationDelay = 0.10;
+	generationDelay = 0.07;
 
 	bg = sf::Color::Black;
+	text = sf::Color::White;
 	livingCell = sf::Color::Green;
 	deadCell = bg;//sf::Color::Red;
 	hoverCell = sf::Color::Blue;

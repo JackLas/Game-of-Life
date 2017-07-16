@@ -15,7 +15,7 @@ GameField::GameField(Settings settings)
 		std::vector<Cell> tmp;
 		for(unsigned int j = 0; j < mySettings.numOfCellWidth; ++j)
 		{
-			tmp.push_back(Cell(sf::Vector2f(j*xOffset + mySettings.cellGap/2 + mySettings.fieldPosition.x, i*yOffset + mySettings.cellGap/2 + mySettings.fieldPosition.y), sf::Vector2f(size)));
+			tmp.push_back(Cell(sf::Vector2f(j*xOffset + mySettings.fieldPosition.x, i*yOffset + mySettings.fieldPosition.y), sf::Vector2f(size)));
 		}
 		curGen.push_back(tmp);
 	}
@@ -65,7 +65,6 @@ void GameField::clear()
 			curGen[y][x].setAlive(false);
 }
 
-#include <iostream>
 int GameField::checkNeighborhood(int x, int y)
 {
 	int counter = 0;
@@ -122,7 +121,13 @@ void GameField::randomize()
 			if((rand()%10000)%2 == 0)
 				curGen[y][x].setAlive(true);
 			else curGen[y][x].setAlive(false);
+}
 
+void GameField::clearHovers()
+{
+	for(unsigned int y = 0; y < curGen.size(); ++y)
+		for(unsigned int x = 0; x < curGen[y].size(); ++x)
+			curGen[y][x].setHover(false);
 }
 
 void GameField::draw(sf::RenderTarget &target, sf::RenderStates states) const

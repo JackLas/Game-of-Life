@@ -23,6 +23,7 @@ public:
 	sf::Color livingCell;
 	sf::Color deadCell;
 	sf::Color hoverCell;
+	sf::Color text;
 public:
 	Settings();
 	Settings(std::string pathToFile);

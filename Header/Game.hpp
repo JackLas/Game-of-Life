@@ -12,11 +12,14 @@ private:
 
 	sf::RenderWindow myWindow;
 	sf::Clock clock;
+	sf::Font font;
 	bool isPaused;
 	float generationDelay;
 	float timeToGeneration;
 
 	GameField gameField;
+
+	sf::Text txGameStatus;
 public:
 	Game(Settings settings);
 	~Game();

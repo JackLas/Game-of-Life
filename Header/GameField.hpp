@@ -22,6 +22,7 @@ public:
 	void nextGeneration();
 	int checkNeighborhood(int x, int y);
 	void randomize();
+	void clearHovers();
 	void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const;
 };
 
